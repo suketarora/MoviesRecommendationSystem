@@ -1,0 +1,35 @@
+[0m[[0m[0minfo[0m] [0m[0mPackaging /home/suket/case_studies/MoviesRecomdationSystem/target/scala-2.11/moviesrecomdationsystem_2.11-0.1.jar ...[0m
+[0m[[0m[0mdebug[0m] [0m[0mInput file mappings:[0m
+[0m[[0m[0mdebug[0m] [0m[0m	Main$$anonfun$main$1.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	  /home/suket/case_studies/MoviesRecomdationSystem/target/scala-2.11/classes/Main$$anonfun$main$1.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	Main.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	  /home/suket/case_studies/MoviesRecomdationSystem/target/scala-2.11/classes/Main.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	Main$$anonfun$2.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	  /home/suket/case_studies/MoviesRecomdationSystem/target/scala-2.11/classes/Main$$anonfun$2.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	Main$Movie.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	  /home/suket/case_studies/MoviesRecomdationSystem/target/scala-2.11/classes/Main$Movie.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	Main$$typecreator13$1.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	  /home/suket/case_studies/MoviesRecomdationSystem/target/scala-2.11/classes/Main$$typecreator13$1.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	Main$$typecreator9$1.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	  /home/suket/case_studies/MoviesRecomdationSystem/target/scala-2.11/classes/Main$$typecreator9$1.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	links.csv[0m
+[0m[[0m[0mdebug[0m] [0m[0m	  /home/suket/case_studies/MoviesRecomdationSystem/target/scala-2.11/classes/links.csv[0m
+[0m[[0m[0mdebug[0m] [0m[0m	Main$$typecreator4$1.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	  /home/suket/case_studies/MoviesRecomdationSystem/target/scala-2.11/classes/Main$$typecreator4$1.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	Main$$typecreator5$1.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	  /home/suket/case_studies/MoviesRecomdationSystem/target/scala-2.11/classes/Main$$typecreator5$1.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	small_rating.csv[0m
+[0m[[0m[0mdebug[0m] [0m[0m	  /home/suket/case_studies/MoviesRecomdationSystem/target/scala-2.11/classes/small_rating.csv[0m
+[0m[[0m[0mdebug[0m] [0m[0m	Main$Ratings$.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	  /home/suket/case_studies/MoviesRecomdationSystem/target/scala-2.11/classes/Main$Ratings$.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	Main$Movie$.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	  /home/suket/case_studies/MoviesRecomdationSystem/target/scala-2.11/classes/Main$Movie$.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	Main$Ratings.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	  /home/suket/case_studies/MoviesRecomdationSystem/target/scala-2.11/classes/Main$Ratings.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	movies.csv[0m
+[0m[[0m[0mdebug[0m] [0m[0m	  /home/suket/case_studies/MoviesRecomdationSystem/target/scala-2.11/classes/movies.csv[0m
+[0m[[0m[0mdebug[0m] [0m[0m	Main$$anonfun$1.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	  /home/suket/case_studies/MoviesRecomdationSystem/target/scala-2.11/classes/Main$$anonfun$1.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	Main$.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	  /home/suket/case_studies/MoviesRecomdationSystem/target/scala-2.11/classes/Main$.class[0m
+[0m[[0m[0minfo[0m] [0m[0mDone packaging.[0m
