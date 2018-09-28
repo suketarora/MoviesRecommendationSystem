@@ -2,13 +2,12 @@
 // Step 1 — Import packages, load, parse, and explore the movie and rating dataset
 
 import org.apache.spark._
+import org.apache.spark.ml.evaluation.RegressionEvaluator
+import org.apache.spark.ml.recommendation.ALS
+import org.apache.spark._
 import org.apache.spark.sql.SparkSession
-import org.apache.spark.mllib.recommendation.ALS
-import org.apache.spark.mllib.recommendation.MatrixFactorizationModel
-import org.apache.spark.mllib.recommendation._              //Rating
-import scala.Tuple2
-import org.apache.spark.rdd.RDD
 import org.apache.spark.sql.types._
+import org.apache.spark.mllib.recommendation.Rating
 
 
     object Main extends App  {
@@ -145,11 +144,11 @@ import org.apache.spark.sql.types._
 
         val splits = ratingsDS.randomSplit(Array(0.75, 0.25), seed = 12345L)
 
-        val (trainingData, testData) = (splits(0), splits(1))
+        val (training, test) = (splits(0), splits(1))
 
-        val numTraining = trainingData.count()
+        val numTraining = training.count()
 
-        val numTest = testData.count()
+        val numTest = test.count()
 
         println("Training: " + numTraining + " test: " + numTest)
 
@@ -157,58 +156,60 @@ import org.apache.spark.sql.types._
  // Step 5 — Prepare the data for building the recommendation model using ALS
 
         
-        val ratings_ML_DS = trainingData.map(row => Rating(row.userId,row.movieId,row.rating))
+        val ratings_ML_DS = training.map(row => Rating(row.userId,row.movieId,row.rating))
 
-        val test_ML_DS = testData.map(row => Rating(row.userId,row.movieId,row.rating))
+        val test_ML_DS = test.map(row => Rating(row.userId,row.movieId,row.rating))
 
 
 //  Step 6 — Build an ALS user product matrix
 
 
-        val rank = 20
-
-        val numIterations = 15
-
-        val lambda = 0.10
-
-        val alpha = 1.00 
-
-        val block = -1
-
-        val seed = 12345L
-
-        val implicitPrefs = false
-
-        val model = new ALS().setIterations(numIterations) .setBlocks(block).setAlpha(alpha)
-
-        .setLambda(lambda)
-
-        .setRank(rank) .setSeed(seed)
-
-        .setImplicitPrefs(implicitPrefs)
-
-        .run(ratings_ML_DS.rdd)
+     // Build the recommendation model using ALS on the training data
+        val als = new ALS()
+          .setMaxIter(5)
+          .setRegParam(0.01)
+          .setUserCol("userId")
+          .setItemCol("movieId")
+          .setRatingCol("rating")
+        val model = als.fit(training)
 
 
-//      Step 7 — Making predictions
+ //     Step 7 — Evaluating the model
+        
+// Evaluate the model by computing the RMSE on the test data
+// Note we set cold start strategy to 'drop' to ensure we don't get NaN evaluation metrics
+        model.setColdStartStrategy("drop")
+        val predictions = model.transform(test)
+        val evaluator = new RegressionEvaluator()
+          .setMetricName("rmse")
+          .setLabelCol("rating")
+          .setPredictionCol("prediction")
+        val rmse = evaluator.evaluate(predictions)
+        println(s"Root-mean-square error = $rmse")// Less is better
 
 
-        // Making Predictions. Get the top 5 movie predictions for user 6
-
-            println("Rating:(UserID, MovieID, Rating)")
-
-            println("----------------------------------")
-
-            val topRecsForUser = model.recommendProducts(6, 5) 
-            for (rating <- topRecsForUser) { println(rating.toString()) } 
-            println("----------------------------------")
+//      Step 8 — Making predictions
 
 
- //     Step 8 — Evaluating the model
 
-        // val rmseTest = computeRmse(model, test_ML_DS, true)
+            // Generate top 10 movie recommendations for each user
+            val userRecs = model.recommendForAllUsers(10)
+            // Generate top 10 user recommendations for each movie
+            val movieRecs = model.recommendForAllItems(10)
 
-        // println("Test RMSE: = " + rmseTest) //Less is better
+            // Generate top 10 movie recommendations for a specified set of users  (9)
+            val users = ratingsDS.select(als.getUserCol).distinct().where($"userId" === 9)
+          
+            val userSubsetRecs = model.recommendForUserSubset(users, 5).collect
+
+// userSubsetRecs: Array[org.apache.spark.sql.Row] = Array([9,WrappedArray([4148,4.9978666], [2959,4.994247], [1997,4.987907], [3798,4.963723], [1923,3.9982934])])
+
+
+            // Generate top 10 user recommendations for a specified set of movies   (Any two users) 
+            val movies = ratingsDS.select(als.getItemCol).distinct().limit(2)
+            val movieSubSetRecs = model.recommendForItemSubset(movies, 5).collect
+ // movieSubSetRecs: Array[org.apache.spark.sql.Row] = Array([1580,WrappedArray([7,2.9961877], [10,1.1922325], [5,0.9261053], [8,0.89429384], [6,0.72400767])], [3997,WrappedArray([1,3.497674], [2,2.0534189], [4,1.6735281], [3,1.1184243], [5,0.9664554])])
+
 
 
         sc.stop()
